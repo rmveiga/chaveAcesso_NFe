@@ -1,2 +1,5 @@
+1.1
+- Implementada a validação de data de emissão
+
 1.0
 - Implementação do projeto

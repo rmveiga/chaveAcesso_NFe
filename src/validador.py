@@ -1,3 +1,8 @@
+from datetime import date
+
+ano_atual = date.today().year
+mes_atual = date.today().month
+
 numeros = (0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
 erros = list()
 cUF = {
@@ -58,6 +63,18 @@ def valida_uf(cod_uf):
         return False
 
 
+def valida_ano_mes(ano_mes):
+    v = True
+    ano_2d = str(ano_atual)[2:]
+    mes_int = int(ano_mes[2:])
+    if int(ano_mes[:2]) > int(ano_2d):
+        v = False
+    if mes_int not in range(1, 13):
+        v = False
+
+    return v
+
+
 def valida_chave_acesso(chave_acesso):
     valido = True
     if not tamanho_chave_acesso(chave_acesso):
@@ -69,5 +86,8 @@ def valida_chave_acesso(chave_acesso):
     if not valida_uf(chave_acesso[:2]):
         valido = False
         erros.append('Código da UF inválido')
+    if not valida_ano_mes(chave_acesso[2:6]):
+        valido = False
+        erros.append('Data de emissão inválida')
 
     return valido, erros
