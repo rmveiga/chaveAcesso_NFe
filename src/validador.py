@@ -40,6 +40,9 @@ cUF = {
     52: 'Goiás',
     53: 'Distrito Federal'}
 
+modelo_nf = {55: 'NF-e',
+             65: 'NFC-e'}
+
 
 def tamanho_chave_acesso(chave):
     if len(chave) == 44:
@@ -121,6 +124,12 @@ def valida_cnpj(cnpj):
     return False
 
 
+def valida_modeloNF(modelo):
+    if modelo in str(modelo_nf.keys()):
+        return True
+    return False
+
+
 def valida_chave_acesso(chave_acesso):
     valido = True
     if not tamanho_chave_acesso(chave_acesso):
@@ -138,5 +147,8 @@ def valida_chave_acesso(chave_acesso):
     if not valida_cnpj(chave_acesso[6:20]):
         valido = False
         erros.append('CNPJ inválido')
+    if not valida_modeloNF(chave_acesso[20:22]):
+        valido = False
+        erros.append('Modelo da nota diferente de 55: NF-e ou 65: NFC-e')
 
     return valido, erros
