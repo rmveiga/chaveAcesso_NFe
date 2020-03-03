@@ -1,4 +1,4 @@
-from src.validador import *
+from src.validador import valida_chave_acesso
 
 print('*' * 50)
 print(f' {"VALIDAÇÃO DE CHAVE DE ACESSO NF-e":^50} ')
