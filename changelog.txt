@@ -1,5 +1,6 @@
 1.1
 - Implementada a validação de data de emissão
+- Implementada a validação de CNPJ
 
 1.0
 - Implementação do projeto
