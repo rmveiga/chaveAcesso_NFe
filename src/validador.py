@@ -104,6 +104,7 @@ def valida_digito_verificador(chave_sem_DV, cDV):
     pesos = [9, 8, 7, 6, 5, 4, 3, 2]
     temp = list()
     soma = 0
+
     # Percorre a chave de acesso sem o DV de traz pra frente
     for i in range(len(chave_sem_DV), 0, -1):
         if len(temp) == 0:
