@@ -1,4 +1,5 @@
 from src.util_nf import *
+from src.chave_acesso import Chave_Acesso
 import re
 
 
@@ -18,11 +19,10 @@ def soh_numero(chave):
     return v
 
 
-def valida_uf(cod_uf):
-    if cod_uf in str(codigo_UF.keys()):
+def valida_uf(cUF):
+    if cUF in str(codigo_UF.keys()):
         return True
-    else:
-        return False
+    return False
 
 
 def valida_ano_mes(ano_mes):
@@ -115,37 +115,46 @@ def valida_digito_verificador(chave_sem_DV, cDV):
         del temp[-1]
 
     dv = 11 - (soma % 11)
-    if dv == int(cDV):
-        return True
-    return False
+
+    try:
+        if dv == int(cDV):
+            return True
+        return False
+    except:
+        return False
 
 
-def valida_chave_acesso(chave_acesso):
+def valida_chave_acesso(chave):
+    chave_nfe = Chave_Acesso(chave)
     erros = list()
     valido = True
-    if not tamanho_chave_acesso(chave_acesso):
-        valido = False
-        erros.append('O tamanho da chave de acesso está incorreto')
-    if not soh_numero(chave_acesso):
-        valido = False
-        erros.append('A chave de acesso deve conter apenas números')
-    if not valida_uf(chave_acesso[:2]):
-        valido = False
-        erros.append('Código da UF inválido')
-    if not valida_ano_mes(chave_acesso[2:6]):
-        valido = False
-        erros.append('Data de emissão inválida')
-    if not valida_cnpj(chave_acesso[6:20]):
-        valido = False
-        erros.append('CNPJ inválido')
-    if not valida_modeloNF(chave_acesso[20:22]):
-        valido = False
-        erros.append('Modelo da nota diferente de 55: NF-e ou 65: NFC-e')
-    if not valida_tipo_emissao(chave_acesso[34:35], chave_acesso[20:22]):
-        valido = False
-        erros.append('Tipo de contingência inválida para NFC-e')
-    if not valida_digito_verificador(chave_acesso[:43], chave_acesso[43:44]):
-        valido = False
-        erros.append('Dígito verificador inválido')
+    while True:
+        if not tamanho_chave_acesso(chave_nfe.chave):
+            valido = False
+            erros.append('O tamanho da chave de acesso está incorreto')
+            break
+        if not soh_numero(chave_nfe.chave):
+            valido = False
+            erros.append('A chave de acesso deve conter apenas números')
+            break
+        if not valida_uf(chave_nfe.cUF):
+            valido = False
+            erros.append('Código da UF inválido')
+        if not valida_ano_mes(chave_nfe.AAMM):
+            valido = False
+            erros.append('Data de emissão inválida')
+        if not valida_cnpj(chave_nfe.CNPJ):
+            valido = False
+            erros.append('CNPJ inválido')
+        if not valida_modeloNF(chave_nfe.mod):
+            valido = False
+            erros.append('Modelo da nota diferente de 55: NF-e ou 65: NFC-e')
+        if not valida_tipo_emissao(chave_nfe.tpEmis, chave_nfe.mod):
+            valido = False
+            erros.append('Tipo de contingência inválida para NFC-e')
+        if not valida_digito_verificador(chave_nfe.chave_semDV, chave_nfe.cDV):
+            valido = False
+            erros.append('Dígito verificador inválido')
+        break
 
     return valido, erros

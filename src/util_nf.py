@@ -1,5 +1,6 @@
 from datetime import date
 
+teste = '33200217801866000102650010000022991000012345'
 ano_atual = date.today().year
 mes_atual = date.today().month
 
