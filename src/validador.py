@@ -100,6 +100,23 @@ def valida_tipo_emissao(tpEmis, modelo):
     return True
 
 
+def valida_digito_verificador(chave_sem_DV, cDV):
+    pesos = [9, 8, 7, 6, 5, 4, 3, 2]
+    temp = list()
+    soma = 0
+    for i in range(len(chave_sem_DV), 0, -1):
+        if len(temp) == 0:
+            temp = pesos[:]
+
+        soma += int(chave_sem_DV[i - 1]) * temp[-1]
+        del temp[-1]
+
+    dv = 11 - (soma % 11)
+    if dv == int(cDV):
+        return True
+    return False
+
+
 def valida_chave_acesso(chave_acesso):
     erros = list()
     valido = True
@@ -124,5 +141,8 @@ def valida_chave_acesso(chave_acesso):
     if not valida_tipo_emissao(chave_acesso[34:35], chave_acesso[20:22]):
         valido = False
         erros.append('Tipo de contingência inválida para NFC-e')
+    if not valida_digito_verificador(chave_acesso[:43], chave_acesso[43:44]):
+        valido = False
+        erros.append('Dígito verificador inválido')
 
     return valido, erros
