@@ -2,6 +2,7 @@
 - Implementada a validação de data de emissão
 - Implementada a validação de CNPJ
 - Implementada a validação de modelo de Nota Fiscal
+- Implementada a validação do tipo de emissão da Nota Fiscal
 
 1.0
 - Implementação do projeto

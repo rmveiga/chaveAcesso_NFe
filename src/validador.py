@@ -19,7 +19,7 @@ def soh_numero(chave):
 
 
 def valida_uf(cod_uf):
-    if cod_uf in str(cUF.keys()):
+    if cod_uf in str(codigo_UF.keys()):
         return True
     else:
         return False
@@ -88,7 +88,20 @@ def valida_modeloNF(modelo):
     return False
 
 
+def valida_tipo_emissao(tpEmis, modelo):
+    # Verifica se o tipo de emissão está entre os tipos permitidos
+    if int(tpEmis) not in tipo_emissao.keys():
+        return False
+
+    # Verifica se a contingência corresponde ao modelo da nota
+    if int(tpEmis) != 1:
+        if modelo == '65' and tpEmis not in '59':
+            return False
+    return True
+
+
 def valida_chave_acesso(chave_acesso):
+    erros = list()
     valido = True
     if not tamanho_chave_acesso(chave_acesso):
         valido = False
@@ -108,5 +121,8 @@ def valida_chave_acesso(chave_acesso):
     if not valida_modeloNF(chave_acesso[20:22]):
         valido = False
         erros.append('Modelo da nota diferente de 55: NF-e ou 65: NFC-e')
+    if not valida_tipo_emissao(chave_acesso[34:35], chave_acesso[20:22]):
+        valido = False
+        erros.append('Tipo de contingência inválida para NFC-e')
 
     return valido, erros
