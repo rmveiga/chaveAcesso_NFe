@@ -11,6 +11,14 @@ while True:
 
     if resultado:
         print('CHAVE DE ACESSO VÁLIDA')
+        print('-' * 50)
+        print(f'UF de emissão: ')
+        print(f'Data de emissão: ')
+        print(f'CNPJ do emissor: ')
+        print(f'Modelo da Nota Fiscal: ')
+        print(f'Série: ')
+        print(f'Número: ')
+        print(f'Tipo de emissão: ')
     else:
         print('CHAVE DE ACESSO INÁLIDA')
         print('*' * 50)
