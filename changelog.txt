@@ -4,6 +4,7 @@
 - Implementada a validação de modelo de Nota Fiscal
 - Implementada a validação do tipo de emissão da Nota Fiscal
 - Implementada a validação do dígito verificador da chave de acesso
+- Implementado loop para validar outras chaves de acesso
 
 1.0
 - Implementação do projeto
