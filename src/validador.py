@@ -157,4 +157,4 @@ def valida_chave_acesso(chave):
             erros.append('Dígito verificador inválido')
         break
 
-    return valido, erros
+    return valido, erros, chave_nfe

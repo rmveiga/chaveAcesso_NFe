@@ -1,3 +1,7 @@
+1.2
+- Implementada a impressão dos dados da nota na tela
+- Implementado loop para validar outra chave de acesso
+
 1.1
 - Implementada a validação de data de emissão
 - Implementada a validação de CNPJ
